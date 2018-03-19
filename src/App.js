@@ -31,21 +31,27 @@ class App extends Component {
 
   addRecipe(e) {
     e.preventDefault();
-    let { currentRecipeIngredients, currentRecipeName, recipes } = this.state;
 
-    // update localStorage
-    let localRecipes = localStorage.getObject("_user_recipes");
-    localRecipes[currentRecipeName] = currentRecipeIngredients;
-    localStorage.setObject("_user_recipes", localRecipes);
+    if (
+      this.state.currentRecipeIngredients.length > 0 &&
+      this.state.currentRecipeName.length > 0
+    ) {
+      let { currentRecipeIngredients, currentRecipeName, recipes } = this.state;
 
-    // update React state
-    recipes[currentRecipeName] = currentRecipeIngredients;
-    this.setState({
-      recipes,
-      currentRecipeName: "",
-      currentRecipeIngredients: "",
-      addOrEdit: "add"
-    });
+      // update localStorage
+      let localRecipes = localStorage.getObject("_user_recipes");
+      localRecipes[currentRecipeName] = currentRecipeIngredients;
+      localStorage.setObject("_user_recipes", localRecipes);
+
+      // update React state
+      recipes[currentRecipeName] = currentRecipeIngredients;
+      this.setState({
+        recipes,
+        currentRecipeName: "",
+        currentRecipeIngredients: "",
+        addOrEdit: "add"
+      });
+    }
   }
 
   editRecipe(i) {
