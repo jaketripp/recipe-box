@@ -19,3 +19,5 @@ list of recipes that can be clicked to show ingredients
 
 everything is stored in localStorage
 
+State
+recipes - array of 
