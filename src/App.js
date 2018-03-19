@@ -47,6 +47,16 @@ class App extends Component {
     });
   }
 
+  deleteRecipe(i) {
+    // React State
+    let { recipes } = this.state;
+    let recipeName = Object.keys(recipes)[i];
+    delete recipes[recipeName];
+
+    localStorage.setObject("_user_recipes", recipes);
+    this.setState({ recipes });
+  }
+
   render() {
     return (
       <div id="main">
@@ -75,10 +85,13 @@ class App extends Component {
             <div className="recipe-name">{item}</div>
             <div className="recipe-icons">
               <Edit />
-              <Trash onClick={() => console.log(item)} />
+              <Trash onClick={() => this.deleteRecipe(i)} />
             </div>
             <ul className="ingredients">
-              <li>{localStorage.getObject("_user_recipes")[item]}</li>
+              {localStorage
+                .getObject("_user_recipes")
+                [item].split(", ")
+                .map((ingredient, j) => <li key={j}>{ingredient}</li>)}
             </ul>
           </div>
         ))}
