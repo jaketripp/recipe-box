@@ -24,13 +24,13 @@ class App extends Component {
     this.state = {
       recipes: localStorage.getObject("_user_recipes"),
       currentRecipeName: "",
-      currentRecipeIngredients: ""
+      currentRecipeIngredients: "",
+      addOrEdit: "add"
     };
   }
 
   addRecipe(e) {
     e.preventDefault();
-
     let { currentRecipeIngredients, currentRecipeName, recipes } = this.state;
 
     // update localStorage
@@ -43,7 +43,19 @@ class App extends Component {
     this.setState({
       recipes,
       currentRecipeName: "",
-      currentRecipeIngredients: ""
+      currentRecipeIngredients: "",
+      addOrEdit: "add"
+    });
+  }
+
+  editRecipe(i) {
+    let { recipes } = this.state;
+    let recipeName = Object.keys(recipes)[i];
+    let recipeIngredients = recipes[recipeName];
+    this.setState({
+      currentRecipeIngredients: recipeIngredients,
+      currentRecipeName: recipeName,
+      addOrEdit: "edit"
     });
   }
 
@@ -68,6 +80,7 @@ class App extends Component {
             name="recipeName"
             value={this.state.currentRecipeName}
             onChange={e => this.setState({ currentRecipeName: e.target.value })}
+            autoFocus
           />
           <label htmlFor="recipeIngredients">Recipe Ingredients:</label>
           <input
@@ -78,13 +91,15 @@ class App extends Component {
               this.setState({ currentRecipeIngredients: e.target.value })
             }
           />
-          <button onClick={e => this.addRecipe(e)}>Add Recipe</button>
+          <button onClick={e => this.addRecipe(e)}>
+            {this.state.addOrEdit === "add" ? "Add Recipe" : "Edit Recipe"}
+          </button>
         </form>
         {Object.keys(localStorage.getObject("_user_recipes")).map((item, i) => (
           <div className="recipe-item" key={i}>
             <div className="recipe-name">{item}</div>
             <div className="recipe-icons">
-              <Edit />
+              <Edit onClick={() => this.editRecipe(i)} />
               <Trash onClick={() => this.deleteRecipe(i)} />
             </div>
             <ul className="ingredients">
