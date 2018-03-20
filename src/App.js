@@ -25,7 +25,8 @@ class App extends Component {
       recipes: localStorage.getObject("_user_recipes"),
       currentRecipeName: "",
       currentRecipeIngredients: "",
-      addOrEdit: "add"
+      addOrEdit: "add",
+      recipeBeingEdited: ""
     };
   }
 
@@ -36,14 +37,21 @@ class App extends Component {
       this.state.currentRecipeIngredients.length > 0 &&
       this.state.currentRecipeName.length > 0
     ) {
-      let { currentRecipeIngredients, currentRecipeName, recipes } = this.state;
+      let {
+        currentRecipeIngredients,
+        currentRecipeName,
+        recipeBeingEdited,
+        recipes
+      } = this.state;
 
       // update localStorage
       let localRecipes = localStorage.getObject("_user_recipes");
+      delete localRecipes[recipeBeingEdited];
       localRecipes[currentRecipeName] = currentRecipeIngredients;
       localStorage.setObject("_user_recipes", localRecipes);
 
       // update React state
+      delete recipes[recipeBeingEdited];
       recipes[currentRecipeName] = currentRecipeIngredients;
       this.setState({
         recipes,
@@ -61,7 +69,8 @@ class App extends Component {
     this.setState({
       currentRecipeIngredients: recipeIngredients,
       currentRecipeName: recipeName,
-      addOrEdit: "edit"
+      addOrEdit: "edit",
+      recipeBeingEdited: recipeName
     });
   }
 
