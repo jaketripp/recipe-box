@@ -81,50 +81,71 @@ class App extends Component {
     delete recipes[recipeName];
 
     localStorage.setObject("_user_recipes", recipes);
-    this.setState({ recipes });
+    this.setState({
+      recipes,
+      currentRecipeIngredients: "",
+      currentRecipeName: ""
+    });
   }
 
   render() {
     return (
       <div id="main">
         <h1>Recipe Box</h1>
-        <form>
+        <form id="recipeForm">
           <label htmlFor="recipeName">Recipe Name:</label>
           <input
             type="text"
             name="recipeName"
             value={this.state.currentRecipeName}
             onChange={e => this.setState({ currentRecipeName: e.target.value })}
+            placeholder="Margherita Pizza"
             autoFocus
           />
           <label htmlFor="recipeIngredients">Recipe Ingredients:</label>
-          <input
+          <textarea
             type="text"
             name="recipeIngredients"
             value={this.state.currentRecipeIngredients}
+            placeholder="Dough, tomatoes, mozzarella, basil, oregano, salt, love"
             onChange={e =>
               this.setState({ currentRecipeIngredients: e.target.value })
             }
           />
-          <button onClick={e => this.addRecipe(e)}>
+          <button onClick={e => this.addRecipe(e)} id="addRecipe">
             {this.state.addOrEdit === "add" ? "Add Recipe" : "Edit Recipe"}
           </button>
         </form>
-        {Object.keys(localStorage.getObject("_user_recipes")).map((item, i) => (
-          <div className="recipe-item" key={i}>
-            <div className="recipe-name">{item}</div>
-            <div className="recipe-icons">
-              <Edit onClick={() => this.editRecipe(i)} />
-              <Trash onClick={() => this.deleteRecipe(i)} />
-            </div>
-            <ul className="ingredients">
-              {localStorage
-                .getObject("_user_recipes")
-                [item].split(", ")
-                .map((ingredient, j) => <li key={j}>{ingredient}</li>)}
-            </ul>
-          </div>
-        ))}
+
+        <div id="recipeList">
+          {Object.keys(localStorage.getObject("_user_recipes")).map(
+            (item, i) => (
+              <div className="recipe" key={i}>
+                <div className="top">
+                  <div className="recipe-name">{item}</div>
+                  <div className="recipe-icons">
+                    <Edit
+                      className="edit-icon"
+                      onClick={() => this.editRecipe(i)}
+                    />
+                    <Trash
+                      className="trash-icon"
+                      onClick={() => this.deleteRecipe(i)}
+                    />
+                  </div>
+                </div>
+                <div className="bottom">
+                  <ul className="ingredients">
+                    {localStorage
+                      .getObject("_user_recipes")
+                      [item].split(", ")
+                      .map((ingredient, j) => <li key={j}>{ingredient}</li>)}
+                  </ul>
+                </div>
+              </div>
+            )
+          )}
+        </div>
       </div>
     );
   }

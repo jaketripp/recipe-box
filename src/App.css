@@ -1,24 +1,104 @@
+html {
+  font-size: 62.5%;
+  box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
 body {
   margin: 0;
   padding: 0;
-  font-family: sans-serif;
+  font-family: "Helvetica", "Arial", sans-serif;
 }
 
-.App {
+#root {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  /* align-items: center; */
+}
+
+#main {
+  width: 1000px;
+  max-width: 95%;
+  margin: 24px auto;
+}
+
+h1 {
   text-align: center;
+  font-size: 4rem;
 }
 
-.App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
+#recipeForm {
+  display: flex;
+  flex-direction: column;
+  font-size: 2rem;
+}
+
+#recipeForm input,
+#recipeForm textarea {
+  font-size: 2rem;
+  outline: none;
+  padding: 8px 16px;
+  border: 1px solid #ccc;
+}
+
+#recipeForm > * {
+  margin: 8px 0;
+}
+
+#recipeList {
+  margin: 40px auto;
+  border: 1px solid #ccc;
+}
+
+#recipeList .top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding: 16px 24px;
+  border-top: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+  font-size: 2rem;
+}
+
+#recipeList .bottom {
+  font-size: 2rem;
+  padding: 16px;
+}
+
+.trash-icon {
+  color: #d9534f;
+  margin: 4px;
+}
+
+.hide {
+  /* transition: height 500ms 500ms, opacity 500ms 0ms; */
+  opacity: 0;
+  height: 0px;
+  padding: 0 !important;
+}
+
+.ingredients {
+  margin: 0;
+  height: 100%;
+}
+
+.edit-icon {
+  color: #0275d8;
+  margin: 4px;
+}
+
+#addRecipe {
+  align-self: flex-end;
+  border: none;
+  padding: 16px 24px;
+  /* outline: none; */
+  background: #f0ad4e;
   color: white;
-}
-
-.App-title {
-  font-size: 1.5em;
-}
-
-.App-intro {
-  font-size: large;
+  font-size: 2rem;
 }
