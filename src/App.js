@@ -108,6 +108,7 @@ class App extends Component {
             name="recipeIngredients"
             value={this.state.currentRecipeIngredients}
             placeholder="Dough, tomatoes, mozzarella, basil, oregano, salt, love"
+            rows="5"
             onChange={e =>
               this.setState({ currentRecipeIngredients: e.target.value })
             }

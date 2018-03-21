@@ -19,13 +19,15 @@ body {
   min-height: 100vh;
   display: flex;
   justify-content: center;
-  /* align-items: center; */
+  background-color: #0275d8;
 }
 
 #main {
   width: 1000px;
-  max-width: 95%;
+  max-width: 90%;
   margin: 24px auto;
+  padding: 16px;
+  background-color: white;
 }
 
 h1 {
@@ -42,7 +44,6 @@ h1 {
 #recipeForm input,
 #recipeForm textarea {
   font-size: 2rem;
-  outline: none;
   padding: 8px 16px;
   border: 1px solid #ccc;
 }
@@ -97,7 +98,6 @@ h1 {
   align-self: flex-end;
   border: none;
   padding: 16px 24px;
-  /* outline: none; */
   background: #f0ad4e;
   color: white;
   font-size: 2rem;
