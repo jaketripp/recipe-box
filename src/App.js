@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import "./App.css";
-const Edit = require("react-icons/lib/fa/edit");
-const Trash = require("react-icons/lib/fa/trash");
+import RecipeItem from "./components/RecipeItem";
 
 class App extends Component {
   constructor(props) {
@@ -46,12 +45,14 @@ class App extends Component {
 
       // update localStorage
       let localRecipes = localStorage.getObject("_user_recipes");
-      delete localRecipes[recipeBeingEdited];
+      if (recipeBeingEdited !== currentRecipeName) {
+        delete localRecipes[recipeBeingEdited];
+        delete recipes[recipeBeingEdited];
+      }
       localRecipes[currentRecipeName] = currentRecipeIngredients;
       localStorage.setObject("_user_recipes", localRecipes);
 
       // update React state
-      delete recipes[recipeBeingEdited];
       recipes[currentRecipeName] = currentRecipeIngredients;
       this.setState({
         recipes,
@@ -121,29 +122,13 @@ class App extends Component {
         <div id="recipeList">
           {Object.keys(localStorage.getObject("_user_recipes")).map(
             (item, i) => (
-              <div className="recipe" key={i}>
-                <div className="top">
-                  <div className="recipe-name">{item}</div>
-                  <div className="recipe-icons">
-                    <Edit
-                      className="edit-icon"
-                      onClick={() => this.editRecipe(i)}
-                    />
-                    <Trash
-                      className="trash-icon"
-                      onClick={() => this.deleteRecipe(i)}
-                    />
-                  </div>
-                </div>
-                <div className="bottom">
-                  <ul className="ingredients">
-                    {localStorage
-                      .getObject("_user_recipes")
-                      [item].split(", ")
-                      .map((ingredient, j) => <li key={j}>{ingredient}</li>)}
-                  </ul>
-                </div>
-              </div>
+              <RecipeItem
+                item={item}
+                i={i}
+                key={i}
+                deleteRecipe={this.deleteRecipe.bind(this)}
+                editRecipe={this.editRecipe.bind(this)}
+              />
             )
           )}
         </div>

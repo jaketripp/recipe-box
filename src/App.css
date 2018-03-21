@@ -58,13 +58,23 @@ h1 {
 }
 
 #recipeList .top {
+  cursor: pointer;
   display: flex;
   justify-content: space-between;
-  align-items: flex-end;
-  padding: 16px 24px;
   border-top: 1px solid #ccc;
   border-bottom: 1px solid #ccc;
   font-size: 2rem;
+  box-sizing: border-box;
+  background: #f7f7f7;
+}
+
+.recipe-name {
+  flex-grow: 100;
+  padding: 16px 0 16px 24px;
+}
+
+.recipe-icons {
+  padding: 16px 24px 16px 0;
 }
 
 #recipeList .bottom {
@@ -77,16 +87,26 @@ h1 {
   margin: 4px;
 }
 
+.bottom {
+  opacity: 1;
+  display: block;
+  overflow-y: hidden;
+}
+
 .hide {
-  /* transition: height 500ms 500ms, opacity 500ms 0ms; */
   opacity: 0;
-  height: 0px;
+  height: 0;
   padding: 0 !important;
+  display: none;
 }
 
 .ingredients {
   margin: 0;
-  height: 100%;
+}
+
+.hide > .ingredients,
+.hide li {
+  height: 0px;
 }
 
 .edit-icon {
